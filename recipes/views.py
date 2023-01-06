@@ -12,9 +12,9 @@ def home(request):
 
 def sobre(request):
     # return http request
-    return render(request, 'temp/temp.html')
+    return HttpResponse('Sobre')
 
 
 def contato(request):
     # return http request
-    return HttpResponse('Contato')
+    return render(request, 'recipes/contato.html')
