@@ -7,12 +7,12 @@ from django.shortcuts import render
 
 def home(request):
     # return http request
-    return render(request, 'recipes/home.html')
+    return render(request, 'recipes/home.html', status=200, context={'name': 'Juliano', })
 
 
 def sobre(request):
     # return http request
-    return HttpResponse('Sobre')
+    return render(request, 'temp/temp.html')
 
 
 def contato(request):
