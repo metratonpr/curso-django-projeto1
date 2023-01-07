@@ -1,50 +1,55 @@
 <div class="recipe recipe-list-item">
     <div class="recipe-cover">
-        <img src="https://via.placeholder.com/1280x720.png/269fe6" alt="temporario">
+        <img src="{{recipe.cover.url}}" alt="temporario">
     </div>
     <div class="recipe-title-container">
-        <h2 class="recipe-title">Lorem ipsum dolor sit amet.</h2>
+        <h2 class="recipe-title">{{ recipe.title}}</h2>
     </div>
     <div class="recipe-author">
         <span class="recipe-author-item">
-            <i class="fas fa-user">Juliano Roque Vieira</i>
+            <i class="fas fa-user">{{ recipe.author.first_name }} {{recipe.author.last_name}}</i>
         </span>
         <span class="recipe-author-item">
-            <i class="fas fa-calendar-alt">16/10/2021 às 11:21</i>
+            <i class="fas fa-calendar-alt">{{ recipe.created_at|date:"d/m/Y"}} às {{ recipe.created_at|date:"h:i:s"}}</i>
         </span>
         <span class="recipe-author-item">
             <a href="/recipes/category/cafe-da-manha">
                 <i class="fa fa-layer-group"></i>
-                <span>Cafe da
-                    manhã</span>
+                <span> {{ recipe.category.name}}</span>
             </a>
         </span>
     </div>
 
     <div class="recipe-content">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis dolores repudiandae rerum
-            eveniet sint esse fuga enim repellendus maiores nam rem debitis quaerat, autem eos officiis
-            voluptates minima commodi et.</p>
+        <p>{{ recipe.description}}</p>
     </div>
 
     <div class="recipe-meta-container">
         <div class="recipe-meta recipe-preparation">
             <h3 class="recipe-meta-title"><i class="fas fa-stopwatch">Preparo</i></h3>
             <div class="recipe-meta-text">
-                0 Minutos
+                {{recipe.preparation_time}} {{recipe.preparation_unit}}
             </div>
         </div>
         <div class="recipe-meta recipe-servings">
             <h3 class="recipe-meta-title"><i class="fas fa-pizza-slice">Porções</i></h3>
             <div class="recipe-meta-text">
-                0 Porções
+                {{recipe.servings}} {{recipe.servings_unit}}
             </div>
         </div>
     </div>
 
+    {% if  is_detail_page is not True %}     
     <footer class="recipe-footer">
         <a href="/recipes/3/" class="recipe-read-more button button-dark button-full-width">
             <i class="fa-solid fa-eye"><span>ver mais...</span></i>
         </a>
     </footer>
+    {% endif %}
+
+    {% if is_detail_page is True %}
+    <div class="preparation-steps">
+        {{recipe.preparation_steps | linebreaksbr}}
+    </div>
+    {% endif %}
 </div>
