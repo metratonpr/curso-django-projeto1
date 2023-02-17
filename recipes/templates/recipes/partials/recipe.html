@@ -13,21 +13,22 @@
     </div>
     <div class="recipe-author">
         <span class="recipe-author-item">
-            
+
             <i class="fas fa-user">
                 {% if recipe.author is not None %}
-                    {% if recipe.author.first_name %}
-                        {{ recipe.author.first_name }} {{recipe.author.last_name}}
-                    {% else %}
-                        {{ recipe.author.username}} 
-                    {% endif %}
+                {% if recipe.author.first_name %}
+                {{ recipe.author.first_name }} {{recipe.author.last_name}}
                 {% else %}
-                    Desconhecido
-                {% endif %}       
-            </i> 
+                {{ recipe.author.username}}
+                {% endif %}
+                {% else %}
+                Desconhecido
+                {% endif %}
+            </i>
         </span>
         <span class="recipe-author-item">
-            <i class="fas fa-calendar-alt">{{ recipe.created_at|date:"d/m/Y"}} às {{ recipe.created_at|date:"h:i:s"}}</i>
+            <i class="fas fa-calendar-alt"></i>
+            {{ recipe.created_at|date:"d/m/Y" }} às {{ recipe.created_at|date:"H:i" }}
         </span>
         {% if recipe.category is not None %}
         <span class="recipe-author-item">
@@ -58,7 +59,7 @@
         </div>
     </div>
 
-    {% if  is_detail_page is not True %}     
+    {% if is_detail_page is not True %}
     <footer class="recipe-footer">
         <a href="{% url 'recipes:recipe' recipe.id %}" class="recipe-read-more button button-dark button-full-width">
             <i class="fa-solid fa-eye"><span>ver mais...</span></i>
@@ -67,8 +68,13 @@
     {% endif %}
 
     {% if is_detail_page is True %}
-    <div class="preparation-steps">
-        {{recipe.preparation_steps | linebreaksbr}}
-    </div>
+
+        <div class="preparation-steps">
+        {% if recipe.preparation_steps_is_html is True %}
+            {{ recipe.preparation_steps|safe }}
+        {% else %}
+            {{ recipe.preparation_steps|linebreaksbr }}
+        {% endif %}
+        </div>
     {% endif %}
 </div>
